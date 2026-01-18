@@ -7,6 +7,10 @@
   ],
   "routes": [
     {
+      "src": "/playlist",
+      "dest": "api/index.py"
+    },
+    {
       "src": "/(.*)",
       "dest": "api/index.py"
     }
