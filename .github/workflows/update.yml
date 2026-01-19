@@ -1,0 +1,27 @@
+name: Update Playlist
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Har 6 ghante mein chalega
+  workflow_dispatch: # Manual chalane ke liye
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Fetch Playlist
+        run: |
+          # Ye command DaddyLive ke asli links nikal legi
+          curl -s "https://raw.githubusercontent.com/gookie-dev/StepDaddyLiveHD/main/playlist.m3u8" > playlist.m3u8
+          # Agar upar wala link kaam na kare toh hum scraper script use karenge
+
+      - name: Commit and Push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add playlist.m3u8
+          git commit -m "Update Playlist" || exit 0
+          git push
+          
